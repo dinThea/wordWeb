@@ -38,13 +38,17 @@
         }
         .header {
             position: relative;
-            margin: auto;
+            margin-bottom: 0;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 0;
         }
         .menu {
             background-color: #000;
             text-align: left;
             margin-top: 0;
             margin-bottom: 0;
+            padding-top: 0;
             margin: auto;
             /* padding: 10; */
             list-style-type: none;
@@ -60,14 +64,19 @@
         }
         canvas {
             display: block;
+            transition: opacity is ease-in;
+            transition: opacity is ease-out;            
+            width: inherit;
         }
         .menuHeader {
             padding-top: .3em;
             font: 2em 'Arial Bold';
         }
         .menuItem {
+            margin-top: .6em;
             padding: .3em;
-            font: 1em 'Arial';
+            font: 1.3em 'Arial';
+            list-style-type: none;            
         }
         .menuItem:hover{
             background-color: #252525;
@@ -80,6 +89,8 @@
             padding: 20px;
         	background-color: rgba(0, 0, 0, 1);
             overflow: hidden;
+            padding-top: 0;
+            margin-top: 0;
         }
         .indent-1 {
             float: left;
@@ -100,18 +111,19 @@
         <canvas id = "header" class = "noselect wrapper header" height=90 width=1000>
 
         </canvas> 
-        <section class = "menuW">
+        <section id = "menuW" class = "menuW">
             <ul class = "menu"></ul>
-                <li class = "noselect menuHeader"></li>
                 <li id = "clickable" class = "noselect menuItem">ABRIR CAÇA PALAVRAS</li>
                 <section id = "element1" class = "wrapper">
                     <canvas id = "c" class = "noselect" width=1000 height=1100> 
         
                     </canvas>
                 </section>
+                <li id = "clickable" class = "noselect menuItem">GERAR CAÇA PALAVRAS</li>
+                <li id = "clickable" class = "noselect menuItem">VALIDAR CAÇA PALAVRAS</li>
+                
                 <div>
                     <li id = "clickable" class = "noselect menuItem">INSERIR PALAVRA</li>
-                    <input type="text" id=".palavranova" name="palavrascaca",>
                     
                 </div>
 
@@ -125,20 +137,43 @@
 </body> 
 <script>
     var c = document.getElementById("c");
-    elemLeft = c.offsetLeft;
-    elemTop = c.offsetLeft; 
+    var element = document.getElementById("element1");
+    var menuW = document.getElementById("menuW");    
+    
+    let corrX = -38, corrY = -53;
+    elemLeft = menuW.offsetLeft - 48;
+    elemTop = c.offsetTop + element.offsetTop + menuW.offsetTop - 40; 
     var begin = [];
     var end = []; 
     var clickHandler = true;
+
+    if (clickHandler) {
+        document.getElementById("element1").style.visibility = "hidden";
+        document.getElementById("c").style.visibility = "hidden";    
+        document.getElementById("c").style.height = "0";        
+            
+    } else {
+        document.getElementById("element1").style.visibility = "visible";
+        document.getElementById("c").style.visibility = "visible";     
+        document.getElementById("c").style.height = "900px";        
+                   
+    }
 
     document.getElementById("clickable").onclick = function() {onClick()};
     
     var onClick = () => {
         if (clickHandler) {
             document.getElementById("element1").style.visibility = "hidden";
+            document.getElementById("c").style.visibility = "hidden";    
+            document.getElementById("c").style.height = "0";                
+            
         } else {
             document.getElementById("element1").style.visibility = "visible";
+            document.getElementById("c").style.visibility = "visible";                
+            document.getElementById("c").style.height = "900px";         
+            
         }
+
         clickHandler = !clickHandler;
         console.log('click');        
     }
@@ -193,12 +228,15 @@
     let bgpos = 60;
     let size = c.width;
     let lineLength = size - center - 30;   
-    let offset = 30.6; 
-    let xoffset = 18;
+    let offset = 40; 
+    let xoffset = 25;
     let originValues = [];    
     let lastValues = [];
     let testRelease = false;
     var ctx = c.getContext("2d");
+    let padding = 10;
+    
+    //ctx.scale(.25,.25);
 
     var headerCanvas = document.getElementById("header");
     var ctxHeader = headerCanvas.getContext("2d");
@@ -215,7 +253,7 @@
 
         for (var i = 0; i < cc.length; i++) {
             for (var j = 0; j < cc[i].length; j++) {
-                ctx.fillText(cc[i][j], center + j*xoffset, h1pos + bgpos + i*offset);         
+                ctx.fillText(cc[i][j], padding + j*xoffset, i*offset);         
             }
         }
     
@@ -229,8 +267,8 @@
         var newoffset = Math.abs(y%(offset))<(offset/2)?y%offset:-y%offset;
         var newoffsetx = Math.abs(x%(2*xoffset))<(2*xoffset/2)?x%2*xoffset:-x%2*xoffset;        
         console.log(newoffset)
-        originValues = [x - x%(xoffset*2),y+elemTop - newoffset + 5 - 2*offset];
-        begin.push([x - x%(xoffset*2),y+elemTop - newoffset + 5 - 2*offset]);
+        originValues = [x - x%(xoffset*2) + padding + corrX,y+elemTop - newoffset - 2*offset + corrY];
+        begin.push([x - x%(xoffset*2) + padding + corrX,y+elemTop - newoffset - 2*offset + corrY]);
         //console.log(cc[Math.floor(x/(offset))-1][Math.floor(y/(offset)) + 8])
 
     }, false);
@@ -248,19 +286,18 @@
             ctx.closePath();
             ctx.fillStyle = 'white'
             ctx.strokeStyle = 'white'
-            showHeader();                  
             showWords();         
             
             if (end.length > 0) {
                 begin.forEach((element, index) => {
                     if (index < begin.length-1) {
-                        drawDoubleStrokedLineWArc(element[0], element[1], end[index][0], end[index][1], 28);  
+                        drawDoubleStrokedLineWArc(element[0], element[1], end[index][0], end[index][1], 35);  
                     }  
                 });
             }
    
-            drawDoubleStrokedLineWArc(originValues[0], originValues[1], x - x%(xoffset*2), y+elemTop-2*offset - y%offset + 5, 28);    
-            lastValues = [x - x%(xoffset*2), y+elemTop-2*offset - y%offset + 5];
+            drawDoubleStrokedLineWArc(originValues[0], originValues[1], x - x%(xoffset*2)+padding+corrX, y+elemTop-2*offset - y%offset + corrY, 35);    
+            lastValues = [x - x%(xoffset*2)+padding+corrX, y+elemTop-2*offset - y%offset+corrY];
         }
 
     }, false);
@@ -280,7 +317,7 @@
         ctx.strokeStyle = 'white'
         begin.forEach((element, index) => {
             if (index < begin.length-1) {
-                drawDoubleStrokedLineWArc(element[0], element[1], end[index][0], end[index][1], 28);  
+                drawDoubleStrokedLineWArc(element[0], element[1], end[index][0], end[index][1], 35);  
             }  
         });
 
@@ -288,11 +325,11 @@
             // drawDoubleStrokedLineWArc(element[0], element[1], end[index][0], end[index][1], 28);    
         // });
         lastValues = [x, y];
-        
+         
 
     }, false);
 
-    var drawDoubleStrokedLineWArc = (beginx, beginy, endx, endy, tickness) => {
+    var drawDoubleStrokedLineWArc = (beginx, beginy, endx, endy, tickness)=> {
         let factor = Math.pow(2, beginx-endx)/Math.pow(2, beginy-endy);
         let angle = Math.atan((beginy-endy)/(beginx-endx));
         let factor2 = Math.pow(2, beginy-endy)/Math.pow(2, beginx-endx);
@@ -311,6 +348,7 @@
         //console.log('angle: ', angle);
         // Desenhando as linhas
         ctx.beginPath();
+        ctx.lineWidth = 3;
         ctx.moveTo(newPos2[0], newPos2[1]);
         ctx.lineTo(newPos2[2], newPos2[3]);
         ctx.stroke();
@@ -351,11 +389,10 @@
     ctx.fillStyle = 'white'
     ctx.strokeStyle = 'white'
 
-    ctx.font = "60px Arial";
     ctx.fillStyle = 'white'
     ctx.arcStyle = 'white'    
     ctx.strokeStyle = 'white'    
-    ctx.font = "20px Arial";    
+    ctx.font = "28px Arial";    
 
     showWords();
 
