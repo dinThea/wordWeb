@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<head>
+    <style>
+        *, *::before, *::after {
+	    box-sizing: border-box;
+        }
+        .noselect {
+            -webkit-touch-callout: none; /* iOS Safari */
+              -webkit-user-select: none; /* Safari */
+               -khtml-user-select: none; /* Konqueror HTML */
+                 -moz-user-select: none; /* Firefox */
+                  -ms-user-select: none; /* Internet Explorer/Edge */
+                      user-select: none; /* Non-prefixed version, currently
+                                            supported by Chrome and Opera */
+        }
+        section{
+            width: 100%;
+            overflow: auto;
+            min-width: 30em;
+            margin: auto;
+        }
+        body {
+            color: #fff;
+            background-color: #000;
+            background: repeating-linear-gradient(to bottom right, #06070e 0, #06070e .4em, #29524a 0, #29524a 0.75em, #94a187 0, #94a187 .25em);
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            font: 1.25rem/1.5 'SourceCodePro', sans-serif;
+        }
+
+        .wrapper {
+            max-width: 800px;
+            /* margin-top: 2em; */
+        	padding-left: 0em;
+        	padding-right: 0em;
+        	background-color: rgba(0, 0, 0, 1);
+            overflow: hidden;
+        }
+        .header {
+            position: relative;
+            margin: auto;
+        }
+        .menu {
+            background-color: #000;
+            text-align: left;
+            margin-top: 0;
+            margin-bottom: 0;
+            margin: auto;
+            /* padding: 10; */
+            list-style-type: none;
+            position: relative;
+            width: 1200px;
+        }
+        .placar {
+            background-color: #000;
+            text-align: center;
+            margin-top: 10;
+            margin-bottom: 0;
+            list-style-type: none;
+        }
+        canvas {
+            display: block;
+        }
+        .menuHeader {
+            padding-top: .3em;
+            font: 2em 'Arial Bold';
+        }
+        .menuItem {
+            padding: .3em;
+            font: 1em 'Arial';
+        }
+        .menuItem:hover{
+            background-color: #252525;
+        }
+        .menuW{
+            max-width: 800px;
+            /* margin-top: 2em; */
+        	padding-left: 0em;
+        	padding-right: 0em;    
+            padding: 20px;
+        	background-color: rgba(0, 0, 0, 1);
+            overflow: hidden;
+        }
+        .indent-1 {
+            float: left;
+            position: relative;
+        }
+        .indent-1 .wrapper {position: relative;}  
+        .palavranova{
+            background-color: #000;
+            font: 1em 'Arial';
+            border: 1px 'white';
+            margin: 'white'
+        }      
+    </style>
+</head>
+
+<body>
+    <section class = "indent-1">
+        <canvas id = "header" class = "noselect wrapper header" height=90 width=1000>
+
+        </canvas> 
+        <section class = "menuW">
+            <ul class = "menu"></ul>
+                <li class = "noselect menuHeader"></li>
+                <li id = "clickable" class = "noselect menuItem">ABRIR CAÇA PALAVRAS</li>
+                <section id = "element1" class = "wrapper">
+                    <canvas id = "c" class = "noselect" width=1000 height=1100> 
+        
+                    </canvas>
+                </section>
+                <div>
+                    <li id = "clickable" class = "noselect menuItem">INSERIR PALAVRA</li>
+                    <input type="text" id=".palavranova" name="palavrascaca",>
+                    
+                </div>
+
+                <li id = "clickable" class = "noselect menuItem">PLACAR:</li>
+            </ul>    
+            <ul class = "noselect placar">
+                
+            </ul>
+        </section>
+    </section>
+</body> 
+<script>
+    var c = document.getElementById("c");
+    elemLeft = c.offsetLeft;
+    elemTop = c.offsetLeft; 
+    var begin = [];
+    var end = []; 
+    var clickHandler = true;
+
+    document.getElementById("clickable").onclick = function() {onClick()};
+    
+    var onClick = () => {
+        if (clickHandler) {
+            document.getElementById("element1").style.visibility = "hidden";
+        } else {
+            document.getElementById("element1").style.visibility = "visible";
+        }
+        clickHandler = !clickHandler;
+        console.log('click');        
+    }
+    
+    var drawDoubleStrokedLine = (beginx, beginy, endx, endy, tickness, ctx) => {
+        ctx.beginPath();
+        ctx.moveTo(beginx, beginy+tickness/2);
+        ctx.lineTo(endx, endy+tickness/2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(beginx, beginy-tickness/2);
+        ctx.lineTo(endx, endy-tickness/2);
+        ctx.stroke();
+        ctx.closePath();
+    }
+
+    
+    let cc = [
+        "C A T B D V A A A U O M E T E O R O X R",
+        "R A U F T G A E P F E O P O E I R A Z X",
+        "U S I U E N U O A P L U T A O L A C C H",
+        "B M E M L C S E D I A A T E S A O A J C",
+        "M C O M E T A S E U T E R R A X U E U O",
+        "O U G O S O R O X S I S T E M A T H A H",
+        "N F A O C D E A A E Z H A E T I O N E S",
+        "R Z L L O E I T D S O P R O C H N C I O",
+        "U O A U P E X I I X H O T W A X O H J R",
+        "T S X A I U O B V B Z R O A E A S T E T",
+        "A O I J O Y E R E T I P U J C A Q H U S",
+        "S O A I M Q V O A F S P P S O O A K O A",
+        "E D I O R E T S A A U A P G E S X O E A",
+        "O O I R U C R E M L N O E O N U T E N I",
+        "O I N E G I X O P Z E G E I O F W J S P",
+        "A R E V A M I R P C V V A A L O A R E V",
+        "S E S E M O E L A C Y D A F U T S E T O",
+        "A B O D J N T U A M S M O E N Y A N I J",
+        "O D O O C A P S E A G U O N O K O F N B",
+        "Z N O N A R R P L R E N Z E Q S C A Q R",
+        "T G O M R U O U J T E D I O T E N A L P",
+        "A Z N S N A C C E E L O S C U T O R A O",
+        "C A R A H O Z S H O R A R I O S Q E A O",
+        "B C E T R A N S L A C A O O B E R F U O",
+        "R I V E E V N V D E U U O T O L A S D U",
+        "F M N L E A O A E O P W A I C E L O V A",
+        "O S I I T W T Q B E I B E E I C O I W E",
+        "Q O K T C A A A V O E I Q F O K S L C A",
+        "X C G E O A C A T O R U I E S T R E L A",
+        "N J I S A E U N I V E R S O A O Z H A Z"
+    ]
+    let center = 30;
+    let h1pos = 60;
+    let bgpos = 60;
+    let size = c.width;
+    let lineLength = size - center - 30;   
+    let offset = 30.6; 
+    let xoffset = 18;
+    let originValues = [];    
+    let lastValues = [];
+    let testRelease = false;
+    var ctx = c.getContext("2d");
+
+    var headerCanvas = document.getElementById("header");
+    var ctxHeader = headerCanvas.getContext("2d");
+    ctxHeader.font = "60px Arial";
+    ctxHeader.fillStyle = 'white'
+    ctxHeader.arcStyle = 'white'    
+    ctxHeader.strokeStyle = 'white'
+    ctxHeader.lineWidth = 2;
+    ctxHeader.fillText("WORDHUNTER", center, h1pos);
+    drawDoubleStrokedLine(center, h1pos+bgpos/2.5, center+lineLength, h1pos+bgpos/2.5, 10, ctxHeader);    
+    ctxHeader.font = "20px Arial";    
+
+    let showWords = (fillStyle) => {
+
+        for (var i = 0; i < cc.length; i++) {
+            for (var j = 0; j < cc[i].length; j++) {
+                ctx.fillText(cc[i][j], center + j*xoffset, h1pos + bgpos + i*offset);         
+            }
+        }
+    
+    }
+
+    c.addEventListener('mousedown', function(event) {
+        var x = event.pageX - elemLeft,
+        y = event.pageY - elemTop;
+        testRelease = true;
+        //originValues = [x - (x%(xoffset*2)>xoffset)?-(xoffset*2-x%(xoffset*2)):(x%(xoffset*2)), y+elemTop - y%(offset) + 5 - 2*offset];
+        var newoffset = Math.abs(y%(offset))<(offset/2)?y%offset:-y%offset;
+        var newoffsetx = Math.abs(x%(2*xoffset))<(2*xoffset/2)?x%2*xoffset:-x%2*xoffset;        
+        console.log(newoffset)
+        originValues = [x - x%(xoffset*2),y+elemTop - newoffset + 5 - 2*offset];
+        begin.push([x - x%(xoffset*2),y+elemTop - newoffset + 5 - 2*offset]);
+        //console.log(cc[Math.floor(x/(offset))-1][Math.floor(y/(offset)) + 8])
+
+    }, false);
+
+    c.addEventListener('mousemove', function(event) {
+        if (testRelease) { 
+            var x = event.pageX - elemLeft,
+            y = event.pageY - elemTop;
+            ctx.fillStyle = 'black'
+            ctx.strokeStyle = 'black'      
+
+            ctx.rect(0,0,1000,1000);            
+            ctx.stroke();
+            ctx.fill(); 
+            ctx.closePath();
+            ctx.fillStyle = 'white'
+            ctx.strokeStyle = 'white'
+            showHeader();                  
+            showWords();         
+            
+            if (end.length > 0) {
+                begin.forEach((element, index) => {
+                    if (index < begin.length-1) {
+                        drawDoubleStrokedLineWArc(element[0], element[1], end[index][0], end[index][1], 28);  
+                    }  
+                });
+            }
+   
+            drawDoubleStrokedLineWArc(originValues[0], originValues[1], x - x%(xoffset*2), y+elemTop-2*offset - y%offset + 5, 28);    
+            lastValues = [x - x%(xoffset*2), y+elemTop-2*offset - y%offset + 5];
+        }
+
+    }, false);
+
+    c.addEventListener('mouseup', function(event) {
+        var x = event.pageX - elemLeft,
+        y = event.pageY - elemTop;
+        testRelease = false;
+        end.push([lastValues[0], lastValues[1]]);
+        //console.log(end, begin);
+        lastValues = [];        
+        // Collision detection between clicked offset and element.
+        
+                           
+        showWords();
+        ctx.fillStyle = 'white'
+        ctx.strokeStyle = 'white'
+        begin.forEach((element, index) => {
+            if (index < begin.length-1) {
+                drawDoubleStrokedLineWArc(element[0], element[1], end[index][0], end[index][1], 28);  
+            }  
+        });
+
+        // begin.forEach((element, index) => {
+            // drawDoubleStrokedLineWArc(element[0], element[1], end[index][0], end[index][1], 28);    
+        // });
+        lastValues = [x, y];
+        
+
+    }, false);
+
+    var drawDoubleStrokedLineWArc = (beginx, beginy, endx, endy, tickness) => {
+        let factor = Math.pow(2, beginx-endx)/Math.pow(2, beginy-endy);
+        let angle = Math.atan((beginy-endy)/(beginx-endx));
+        let factor2 = Math.pow(2, beginy-endy)/Math.pow(2, beginx-endx);
+        let newPos = [
+            beginx+Math.sin(angle)*tickness/2,
+            beginy-Math.cos(angle)*tickness/2,
+            endx+Math.sin(angle)*tickness/2,
+            endy-Math.cos(angle)*tickness/2
+        ]
+        let newPos2 = [
+            beginx-Math.sin(angle)*tickness/2,
+            beginy+Math.cos(angle)*tickness/2,
+            endx-Math.sin(angle)*tickness/2,
+            endy+Math.cos(angle)*tickness/2
+        ]
+        //console.log('angle: ', angle);
+        // Desenhando as linhas
+        ctx.beginPath();
+        ctx.moveTo(newPos2[0], newPos2[1]);
+        ctx.lineTo(newPos2[2], newPos2[3]);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(newPos[0], newPos[1]);
+        ctx.lineTo(newPos[2], newPos[3]);
+        ctx.stroke();
+        ctx.closePath();
+
+        ctx.beginPath();             
+
+        if ((endx - beginx) <= 0) {
+            ctx.arc(beginx, beginy, tickness/2 - .1, angle + 3*Math.PI/2, angle + Math.PI/2);
+            ctx.stroke();
+            ctx.closePath();
+            ctx.beginPath();             
+            ctx.arc(endx, endy, tickness/2 - .2, angle + Math.PI/2, angle + 3*Math.PI/2);
+        } else {
+            ctx.arc(beginx, beginy, tickness/2 - .1, angle + Math.PI/2, angle + 3*Math.PI/2);
+            ctx.stroke();
+            ctx.closePath();
+            ctx.beginPath();             
+            ctx.arc(endx, endy, tickness/2 - .2, angle + 3*Math.PI/2, angle + Math.PI/2);
+        }    
+        ctx.stroke();
+        ctx.closePath();
+        //ctx.fill();
+
+    }
+
+    ctx.fillStyle = 'black'
+    ctx.strokeStyle = 'black'      
+
+    ctx.rect(0,0,1000,1000);            
+    ctx.stroke();
+    ctx.fill(); 
+    ctx.closePath();
+    ctx.fillStyle = 'white'
+    ctx.strokeStyle = 'white'
+
+    ctx.font = "60px Arial";
+    ctx.fillStyle = 'white'
+    ctx.arcStyle = 'white'    
+    ctx.strokeStyle = 'white'    
+    ctx.font = "20px Arial";    
+
+    showWords();
+
+</script>
