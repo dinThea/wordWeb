@@ -1,9 +1,11 @@
 <!DOCTYPE html>
+
 <head>
-    <style>
+    <style>/* coodificacao do css*/
         *, *::before, *::after {
 	    box-sizing: border-box;
         }
+        /*define estilo da funcao que define que o item se torna nao selecionavel*/
         .noselect {
             -webkit-touch-callout: none; /* iOS Safari */
               -webkit-user-select: none; /* Safari */
@@ -13,76 +15,101 @@
                       user-select: none; /* Non-prefixed version, currently
                                             supported by Chrome and Opera */
         }
+
         section{
             width: 100%;
             overflow: auto;
             min-width: 30em;
             margin: auto;
         }
+
+        /*define estilo da funcao corpo */
         body {
             color: #fff;
-            background-color: #000;
             background: repeating-linear-gradient(to bottom right, #06070e 0, #06070e .4em, #29524a 0, #29524a 0.75em, #94a187 0, #94a187 .25em);
             background-attachment: fixed;
             background-repeat: no-repeat;
-            font: 1.25rem/1.5 'SourceCodePro', sans-serif;
+            font: 1vw 'SourceCodePro', sans-serif;
         }
-
+        
+        /*define o estilo da funcao que empacota os itens do menu*/
         .wrapper {
-            max-width: 800px;
+            max-width: 2000px;
             /* margin-top: 2em; */
         	padding-left: 0em;
         	padding-right: 0em;
         	background-color: rgba(0, 0, 0, 1);
+            padding-bottom: 0;
+            padding-top: 0;
             overflow: hidden;
         }
+
+        /**/
         .header {
             position: relative;
             margin-bottom: 0;
             margin-left: auto;
             margin-right: auto;
             margin-top: 0;
+            border-top-left-radius:20px;
+            border-top-right-radius: 20px;
+            min-width: 100%;
         }
+
+        /**/
         .menu {
             background-color: #000;
-            text-align: left;
+            /* text-align: center; */
             margin-top: 0;
             margin-bottom: 0;
-            padding-top: 0;
+            padding-left: 0;
+            padding-left: 0;            
             margin: auto;
+            width: auto !important;
+            min-width: 5em;
             /* padding: 10; */
             list-style-type: none;
             position: relative;
-            width: 1200px;
         }
+
+        /**/
         .placar {
             background-color: #000;
-            text-align: center;
+            /* text-align: center; */
             margin-top: 10;
             margin-bottom: 0;
             list-style-type: none;
         }
+
+        /**/
         canvas {
             display: block;
             transition: opacity is ease-in;
             transition: opacity is ease-out;            
             width: inherit;
         }
+
+        /**/
         .menuHeader {
             padding-top: .3em;
-            font: 2em 'Arial Bold';
+            font: 52% 'Arial Bold';
         }
+
+        /**/
         .menuItem {
             margin-top: .6em;
             padding: .3em;
             font: 1.3em 'Arial';
             list-style-type: none;            
         }
+
+        /**/
         .menuItem:hover{
             background-color: #252525;
         }
+
+        /**/
         .menuW{
-            max-width: 800px;
             /* margin-top: 2em; */
         	padding-left: 0em;
         	padding-right: 0em;    
@@ -91,107 +118,175 @@
             overflow: hidden;
             padding-top: 0;
             margin-top: 0;
+            border-bottom-left-radius: 20px;
+            max-width: 50%;
         }
+
         .indent-1 {
             float: left;
-            position: relative;
+            transition: opacity is ease-in;
+            transition: opacity is ease-out;            
         }
-        .indent-1 .wrapper {position: relative;}  
+        .indent-1 section {width: 50%; float: left !important;}
         .palavranova{
             background-color: #000;
-            font: 1em 'Arial';
+            font: 20% 'Arial';
             border: 1px 'white';
             margin: 'white'
-        }      
+        }
+
+        /**/      
+        .form{
+            margin:  0;
+            padding: 0;
+        }
+        .placar{
+            padding: .3em;
+            padding-top: 1.2em;
+            padding-bottom: 1.38em;                                    
+            font: 120% 'Arial';
+            z-index: 2;
+            border-bottom-right-radius: 20px;
+
+        }
+        .centered{
+            width: 100%;
+        }
     </style>
+    <meta charset="utf-8"/>
 </head>
 
 <body>
-    <section class = "indent-1">
-        <canvas id = "header" class = "noselect wrapper header" height=90 width=1000>
+    <section class = "centered">
+        <section class = "indent-1">
+            <canvas id = "header" class = "noselect wrapper header" height=90 width=1500>
+            </canvas> 
+            <section id = "menuW" class = "menuW">
+                <ul class = "menu">
+                    <!-- Menu de abertura dos caca palavras -->
+                    <li id = "clickable" class = "noselect menuItem">ABRIR CAÇA PALAVRAS</li>
 
-        </canvas> 
-        <section id = "menuW" class = "menuW">
-            <ul class = "menu"></ul>
-                <li id = "clickable" class = "noselect menuItem">ABRIR CAÇA PALAVRAS</li>
-                <section id = "element1" class = "wrapper">
-                    <canvas id = "c" class = "noselect" width=1000 height=1100> 
-        
+                    <section id = "abrircp" class = "wrapper">
+                        <ul class = "menu">
+                            <!-- Abre o caca palavras facil -->
+                            <li id = "cc1" class = "noselect menuItem">FÁCIL</li>
+
+                            <!-- Abre o caca palavras medio -->
+                            <li id = "cc2" class = "noselect menuItem">MÉDIO</li>
+
+                            <!-- Abre o caca palavras dificil -->
+                            <li id = "cc3" class = "noselect menuItem">DIFÍCIL</li>                        
+                        </ul>
+                    </section>
+                    <canvas id = "c" class = "noselect" width=1200 height="1300"> 
                     </canvas>
-                </section>
-                <li id = "clickable" class = "noselect menuItem">GERAR CAÇA PALAVRAS</li>
-                <li id = "clickable" class = "noselect menuItem">VALIDAR CAÇA PALAVRAS</li>
-                
-                <div>
-                    <li id = "clickable" class = "noselect menuItem">INSERIR PALAVRA</li>
-                    
-                </div>
 
-                <li id = "clickable" class = "noselect menuItem">PLACAR:</li>
-            </ul>    
-            <ul class = "noselect placar">
-                
-            </ul>
+                </ul>    
+            </section>
+            <section class = "placar">PLACAR:
+                <br>
+                <canvas id = "placar" width="450" height=1300></canvas>
+            </section>
         </section>
     </section>
 </body> 
 <script>
-    var c = document.getElementById("c");
-    var element = document.getElementById("element1");
-    var menuW = document.getElementById("menuW");    
-    
-    let corrX = -38, corrY = -53;
-    elemLeft = menuW.offsetLeft - 48;
-    elemTop = c.offsetTop + element.offsetTop + menuW.offsetTop - 40; 
-    var begin = [];
-    var end = []; 
-    var clickHandler = true;
 
-    if (clickHandler) {
-        document.getElementById("element1").style.visibility = "hidden";
-        document.getElementById("c").style.visibility = "hidden";    
-        document.getElementById("c").style.height = "0";        
-            
-    } else {
-        document.getElementById("element1").style.visibility = "visible";
-        document.getElementById("c").style.visibility = "visible";     
-        document.getElementById("c").style.height = "900px";        
-                   
-    }
+    var init = new Array();
+    var begin = new Array();
+    var end = new Array();
+    let lista = [];
+    var placar = document.getElementById("placar");
+    placar.style.height = 0;
+    let cc = []
 
-    document.getElementById("clickable").onclick = function() {onClick()};
-    
-    var onClick = () => {
-        if (clickHandler) {
-            document.getElementById("element1").style.visibility = "hidden";
-            document.getElementById("c").style.visibility = "hidden";    
-            document.getElementById("c").style.height = "0";                
-            
-        } else {
-            document.getElementById("element1").style.visibility = "visible";
-            document.getElementById("c").style.visibility = "visible";                
-            document.getElementById("c").style.height = "900px";         
-            
-        }
+    // caca palavras do nivel facil
+    cc1 = [    
+        "",    
+        "        P F H T O R T A W B          ",// TORTA HOR
+		"        G J Y K W F V E X S          ",
+		"        S B N M N R C S J T          ",// SALADA COMECO VER +  COMECO DO BOLO DIA
+		"        J L O T F A M A T R          ",
+		"        F P Y L W N J L B O          ",// COMECO DO PICLES VER
+		"        O I Y P O G D F S G          ",// FIM DO BOLO DIA + FRANGO DIA 
+		"        L C M Y S O R D M O          ",// COMECO DA MANGA DIA
+		"        O L B A T A T A W N          ",//BATATA HOR + FIM DA SALADA VER
+		"        K E R F N I X H S O          ",
+	    "        P S D G O G N M S F          ",// FIM DO PICLE VER
+        "        Z B O P U F A N H F          ",// FIM DA MANGA DIA + FIM DO FRANGO DIA
+    ]
 
-        clickHandler = !clickHandler;
-        console.log('click');        
-    }
-    
-    var drawDoubleStrokedLine = (beginx, beginy, endx, endy, tickness, ctx) => {
-        ctx.beginPath();
-        ctx.moveTo(beginx, beginy+tickness/2);
-        ctx.lineTo(endx, endy+tickness/2);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(beginx, beginy-tickness/2);
-        ctx.lineTo(endx, endy-tickness/2);
-        ctx.stroke();
-        ctx.closePath();
-    }
+    //Lista de palavras do cc1
+    listacc1 =[
+        "BATATA",
+        "BOLO",
+        "FRANGO",
+        "MANGA",
+        "PICLES",
+        "SALADA",
+        "TORTA",
+    ]
 
-    
-    let cc = [
+    // caca palavras do nivel medio
+    cc2 =[    
+        "",    
+        "   H D M X R F K K J J Y K W C L N    ",
+		"   J L H S F C M W T U F A Y M W J    ",// comeco do salsicha ver
+		"   L D C A S D W L M M O U B M I I    ",
+		"   P L D L G M E G A R O C N X K U    ",// fim do batman dia invertido + CORAGEM INVERTIDO
+		"   R Y V S F N K G E L K A A V X C    ",
+		"   B B L I F G Y V A B M U G W S Q    ",// COMECO DO STITCH DIA
+		"   Q E Q C G I D N X T I M V T H S    ",
+		"   V O B H I P I K A C H U I Q W N    ",//pikachu horizontal
+		"   F D E A W L O B I S S T Y X P S    ",//comeco do batman dia invertido + fim do salsicha ver
+		"   M K A W E I E V F R C P I E R C    ",
+		"   H I O J B H G P S H E L U Y E I    ",//FIM DO STITCH DIA
+		"   Q Y D A O K U Q A X E G T O R A    ",// FIM DO PERNA LONGA VER INVERTIDA
+		"   D E J G S E C X R C A S C I Q G    ",// COMECO DO COISA VER
+		"   C Y D F B V O N S S Y U I S E N    ",// COMECO DO DUDU VERTICAL
+		"   B A R T B X I M P S S A C K D O    ",//BART HOR
+		"   K W D G E L A D O U N H L I O L    ",//FIM DO POOH dia invertido + GELADO HOR
+		"   J I U I X K A L F N X W O W Y A    ",// FIM DO COISA VER
+		"   S S A M U R A I J A C K P O X N    ",//samuraijack hor
+		"   Y S G I S U N G J X T W E H P R    ",// COMECO DO POOH dia INVERTIDA
+		"   P S G C K H H G X P F T G M F E    ",
+		"   T W E F K U R I L I N L E G L P    ",//comeco do eustacio diagonal + COMECO DE PERNALONGA VERTICAL INVERTIDA + KURILIN HOR
+		"   Y L N U Y E N I R E V L O W S N    ",// WOLVERINE HOR INVERTIDO
+		"   Y G K N S R R I S N C N E V M H    ",// COMECO DO SEIYA VER
+		"   B W E K E T S H L S L O F H S S    ",
+		"   M U K H I L A F O X K I S Q U B    ",
+		"   V G E R Y F P C M I C K E Y L F    ",// MICKEY HOR
+		"   A F K O A L J Q I G P C E M I R    ", // FIM DO SEIYA VER
+		"   J L K C G Q L D O O Q R F X A F    ",// fim do eustacio diagonal
+		"   C Y T C K I I L G O M D S H V O    ",//mogli hor invertido
+		"   A Y D H S Q E N H N E Y G S A W    ",
+    ]
+
+    //Lista para o cc2
+    listacc2 =[
+        "BART",
+        "BATMAN",
+        "COISA",
+        "CORARGEM",
+        "DUDU",
+        "EUSTACIO",
+        "GELADO",
+        "KURULIN",
+        "MICKEY",
+        "MOGLI",
+        "PERNALONGA",
+        "PIKACHU",
+        "POOH",
+        "SALSICHA",
+        "SAMURAIJACK",
+        "SEIYA",
+        "STITCH",
+        "WOLVERINE",
+        
+    ]
+    // caca palavras do nivel dificil
+    cc3 = [
+        "",
         "C A T B D V A A A U O M E T E O R O X R",
         "R A U F T G A E P F E O P O E I R A Z X",
         "U S I U E N U O A P L U T A O L A C C H",
@@ -223,32 +318,107 @@
         "X C G E O A C A T O R U I E S T R E L A",
         "N J I S A E U N I V E R S O A O Z H A Z"
     ]
-    let center = 30;
-    let h1pos = 60;
-    let bgpos = 60;
-    let size = c.width;
-    let lineLength = size - center - 30;   
-    let offset = 40; 
-    let xoffset = 25;
-    let originValues = [];    
-    let lastValues = [];
-    let testRelease = false;
-    var ctx = c.getContext("2d");
-    let padding = 10;
-    
-    //ctx.scale(.25,.25);
 
-    var headerCanvas = document.getElementById("header");
-    var ctxHeader = headerCanvas.getContext("2d");
-    ctxHeader.font = "60px Arial";
-    ctxHeader.fillStyle = 'white'
-    ctxHeader.arcStyle = 'white'    
-    ctxHeader.strokeStyle = 'white'
-    ctxHeader.lineWidth = 2;
-    ctxHeader.fillText("WORDHUNTER", center, h1pos);
-    drawDoubleStrokedLine(center, h1pos+bgpos/2.5, center+lineLength, h1pos+bgpos/2.5, 10, ctxHeader);    
-    ctxHeader.font = "20px Arial";    
+    //Lista para o cc3
+    listacc3 = [
+        "ANO",
+        "ASTEROIDE",
+        "ASTROS",
+        "CELESTES",
+        "COMETAS",
+        "CORPOS",
+        "COSMICA",
+        "DIA",
+        "EFEITO",
+        "ESPACO",
+        "ESTRELA",
+        "ESTUFA",
+        "FUSO",
+        "GALAXIA",
+        "HELIOSFERA",
+        "HORARIO",
+        "INVERNO",
+        "JUPITER",
+        "LUA",
+        "MARTE",
+        "MERCURIO",
+        "MESES",
+        "METEORO",
+        "MUNDO",
+        "NETUNO",
+        "NOITE",
+        "OUTONO",
+        "OXIGENIO",
+        "PLANETOIDE",
+        "PLUTAO",
+        "POEIRA",
+        "PRIMAVERA",
+        "ROTACAO",
+        "SATURNO",
+        "SATELITES",
+        "SISTEMA",
+        "SOL",
+        "SOLAR",
+        "TELESCOPIO",
+        "TERRA",
+        "TRANSLACAO",
+        "UNIVERSO",
+        "URANO",
+        "VERAO",
+        "VIDA",
+        "VENUS",
+        "ORBITA",
+    ]
+       
+    // Funcao que guardara as palavras do caca palavra
+    var findWords = (cy1, cx1, cy2, cx2) => {
+        var ret = '';
+        console.log(cy1, cx1, cy2, cx2);
+        if(cx1 == cx2){
+            if(cy1 < cy2){
+                for(j = cy1; j <= cy2; j++){
+                    if (cc[cx1][j] != ' ')
+                        ret+=cc[cx1][j];
+                    console.log(ret)
+                    
+                }
+            }
+            if(cy1 > cy2){
+                for(j = cy2; j <= cy1; j--){
+                    if (cc[cx1][j] != ' ')               
+                        ret+=cc[cx1][j];
+                    console.log(ret)                    
+                }
+            }
+        }
+        if(cy1 == cy2){
+            if(cx1 < cx2){
+                for(i = cx1; i <= cx2; i++ ){
+                    if (cc[i][cy1] != ' ')
+                        ret+=cc[i][cy1];
+                    console.log(ret)
+                }
+            }
+            else if(cx1 > cx2){
+                for(i = cx2; i <= cx1; i--){
+                    if (cc[i][cy1] != ' ')                    
+                        ret+=cc[i][cy1];
+                    console.log(ret)
+                    
+                }    
+            }
+        }
 
+        return ret;
+    }
+    // leitura do html no javascript
+    var c = document.getElementById("c");
+    var element = document.getElementById("abrircp");
+    var menuW = document.getElementById("menuW"); 
+    var ctx = c.getContext("2d");    
+    var plq = placar.getContext("2d"); 
+    console.log(ctx.canvas.width, ctx.canvas.height);
+    // funcao que mostra as palavras
     let showWords = (fillStyle) => {
 
         for (var i = 0; i < cc.length; i++) {
@@ -256,31 +426,238 @@
                 ctx.fillText(cc[i][j], padding + j*xoffset, i*offset);         
             }
         }
-    
+
     }
 
+    let corrX = -38, corrY = -50; // correcao das posicao de x e y
+    let proportion = [1.2, 1.2];
+    elemLeft = element.offsetLeft + menuW.offsetLeft; // correcao de posicao
+    elemTop = element.offsetTop + menuW.offsetTop;// vericacao de estado
+    var clickHandler = true;// verificacao de estado
+    var ccexists = true;// verificacao de estado
+    var actualCc = 0;// verificacao de estado
+    
+    if (clickHandler) {
+        document.getElementById("abrircp").style.visibility = "hidden";
+        document.getElementById("c").style.visibility = "hidden";    
+        document.getElementById("c").style.height = "0";  
+        document.getElementById("abrircp").style.height = "0";       
+        placar.style.height = "0"; 
+              
+            
+    } else {
+        document.getElementById("abrircp").style.visibility = "visible";
+        document.getElementById("abrircp").style.height = "180px";    
+        placar.style.height = "180px";            
+        if (ccexists) {
+            console.log(ccexists);
+            document.getElementById("c").style.visibility = "visible";     
+            document.getElementById("c").style.height = "900px";
+        } else {
+            document.getElementById("c").style.visibility = "hidden";
+        }        
+                       
+    }
+
+    // chamada da funcao onClickItem
+    document.getElementById("clickable").onclick = function() {onClick()};
+    document.getElementById("cc1").onclick = function() {onClickItem(this.id)};
+    document.getElementById("cc2").onclick = function() {onClickItem(this.id)};
+    document.getElementById("cc3").onclick = function() {onClickItem(this.id)};
+
+    var desenharPalavras = (lista) => {
+        lista.forEach((element, index) => {
+            plq.fillText(element, padding, index*offset/1.5+43);                     
+        });
+    }
+
+    // funcao que faz cada item se tornar clicavel
+    var onClickItem = (id) => {
+
+        plq.fillStyle = 'black'
+        plq.strokeStyle = 'black'      
+        plq.font = "18px Arial";        
+        plq.rect(0,0,10000,10000);  
+        plq.fill();
+        plq.closePath();          
+        var size;
+
+        plq.fillStyle = 'white'
+        plq.strokeStyle = 'white'      
+
+        switch (id) {
+            case 'cc1':
+                cc = cc1;
+                lista = listacc1;
+                size = '1300px';
+            break;
+            case 'cc2':
+                cc = cc2;
+                lista = listacc2;
+                size = '1300px';
+            break;
+            case 'cc3':
+                cc = cc3;
+                lista = listacc3;
+                size = '1300px';
+            break;
+        }
+  
+        desenharPalavras(lista);
+
+        console.log(cc);
+
+        document.getElementById("abrircp").style.visibility = "hidden";
+        document.getElementById("abrircp").style.height = "0px"; 
+        placar.style.height = "180px";                                                          
+
+        // caso caca palavras existe ele se torna visivel
+        if (ccexists) {
+            console.log(ccexists);
+            document.getElementById("c").style.visibility = "visible"; 
+            document.getElementById("c").style.height = size;
+            placar.style.height = size;                                                              
+        
+        // caso nao exsita ele deixa invisivel
+        } else {
+            document.getElementById("c").style.visibility = "hidden";  
+            
+        }
+
+        clickHandler = !clickHandler;
+        ctx.fillStyle = 'black'
+        ctx.strokeStyle = 'black'      
+        plq.fillStyle = 'black'
+        plq.strokeStyle = 'black'      
+
+        ctx.rect(0,0,10000,10000);            
+        ctx.stroke();
+        ctx.fill(); 
+        ctx.closePath();
+        ctx.fillStyle = 'white'
+        ctx.strokeStyle = 'white'
+        init = new Array();
+        begin = new Array();
+        counter = 0;
+        end = new Array();
+        showWords();
+        
+        console.log('click');     
+        
+    }
+
+    // funcao que faz aparecer ou desaparecer quando clicado
+    var onClick = () => {
+        document.getElementById("c").style.visibility = "hidden";
+        document.getElementById("c").style.height = "0px";                
+
+        if (clickHandler) {
+            document.getElementById("abrircp").style.visibility = "hidden";
+            document.getElementById("abrircp").style.height = "0px";
+            placar.style.height = "0";   
+            plq.fillStyle = 'black'
+            plq.strokeStyle = 'black'      
+
+            plq.rect(0,0,10000,10000);  
+            plq.fill();
+            plq.closePath();          
+                                                 
+                      
+        } else {
+            document.getElementById("abrircp").style.visibility = "visible";
+            document.getElementById("abrircp").style.height = "180px";  
+            placar.style.height = "180px";                             
+            plq.fillStyle = 'black'
+            plq.strokeStyle = 'black'      
+
+            plq.rect(0,0,10000,10000);            
+            plq.fill();
+            plq.closePath();                   
+            
+        }
+
+        clickHandler = !clickHandler;
+        console.log('click');        
+    }
+    
+    // desenha as linhas de selecao nas palavras do caca
+    var drawDoubleStrokedLine = (beginx, beginy, endx, endy, tickness, ctx) => {
+        ctx.beginPath();
+        ctx.moveTo(beginx, beginy+tickness/2);
+        ctx.lineTo(endx, endy+tickness/2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(beginx, beginy-tickness/2);
+        ctx.lineTo(endx, endy-tickness/2);
+        ctx.stroke();
+        ctx.closePath();
+    }
+
+    // https://raw.githubusercontent.com/dinThea/wordhunter/master/cc.txt
+    
+    // definicao de posicoes
+    let center = 30;
+    let h1pos = 60;
+    let bgpos = 60;
+    let size = c.width;
+    let lineLength = size - center + 475;   
+    let offset = 40; 
+    let xoffset = 19;
+    let counter = 0;
+    let originValues = [];    
+    let lastValues = [];
+    let testRelease = false;
+    let padding = 25;
+    let wordsCoord = [1,1,1,1];
+    let words = [];
+    //ctx.scale(.25,.25);
+
+    var headerCanvas = document.getElementById("header");// variavel do titulo da pagina
+    var ctxHeader = headerCanvas.getContext("2d");// contexto sobre a variavel headerCanvas
+    ctxHeader.font = "60px Arial";//definicao da fonte do titulo
+    ctxHeader.fillStyle = 'white'// definicao da cor do preenchimento
+    ctxHeader.arcStyle = 'white'    // definicao da cor do arco
+    ctxHeader.strokeStyle = 'white'// defin definicao da cor do tracado
+    ctxHeader.lineWidth = 2;// definicao do tamanho da linha
+    ctxHeader.fillText("WORDHUNTER", center, h1pos);// definicao do nome do jogo
+    drawDoubleStrokedLine(center - 10, h1pos+bgpos/2.5, center+lineLength, h1pos+bgpos/2.5, 10, ctxHeader);// definicao do tracado duplo   
+    ctxHeader.font = "20px Arial";//   tamanho das letras do caca palavras
+
+    //adiciona um eventlistener para o movimento descendete do mouse
     c.addEventListener('mousedown', function(event) {
+        wordsCoord = [1,1,1,1];
         var x = event.pageX - elemLeft,
         y = event.pageY - elemTop;
+        x*=proportion[0];
+        y*=proportion[1];
+
         testRelease = true;
         //originValues = [x - (x%(xoffset*2)>xoffset)?-(xoffset*2-x%(xoffset*2)):(x%(xoffset*2)), y+elemTop - y%(offset) + 5 - 2*offset];
         var newoffset = Math.abs(y%(offset))<(offset/2)?y%offset:-y%offset;
         var newoffsetx = Math.abs(x%(2*xoffset))<(2*xoffset/2)?x%2*xoffset:-x%2*xoffset;        
         console.log(newoffset)
         originValues = [x - x%(xoffset*2) + padding + corrX,y+elemTop - newoffset - 2*offset + corrY];
-        begin.push([x - x%(xoffset*2) + padding + corrX,y+elemTop - newoffset - 2*offset + corrY]);
-        //console.log(cc[Math.floor(x/(offset))-1][Math.floor(y/(offset)) + 8])
+        lastValues = [x - x%(xoffset*2)+padding+corrX, y+elemTop-2*offset - y%offset+corrY]; 
+        init.push([lastValues[0], lastValues[1]]);
+        console.log(init);     
+        counter++;
+        wordsCoord[0] = Math.floor(originValues[0]/(xoffset)-.44); wordsCoord[1] = Math.floor(originValues[1]/(offset)-.825)+2;        
+        console.log('primeira letra:', cc[wordsCoord[0]][wordsCoord[1]]);//console.log(cc[Math.floor(x/(offset))-1][Math.floor(y/(offset)) + 8])
 
     }, false);
 
+    // adiciona um eventlistener para o movimento do mouse
     c.addEventListener('mousemove', function(event) {
-        if (testRelease) { 
-            var x = event.pageX - elemLeft,
-            y = event.pageY - elemTop;
-            ctx.fillStyle = 'black'
-            ctx.strokeStyle = 'black'      
+        var x = event.pageX - elemLeft,
+        y = event.pageY - elemTop;
+        x*=proportion[0];
+        y*=proportion[1];
 
-            ctx.rect(0,0,1000,1000);            
+        drawDoubleStrokedLineWArc(x - x%(xoffset*2)+padding+corrX, y+elemTop-2*offset - y%offset + corrY, x - x%(xoffset*2)+padding+corrX+1, y+elemTop-2*offset - y%offset + corrY+1, 35);                        
+        if (testRelease) { 
+            ctx.strokeStyle = 'black'      
+            ctx.fillStyle = 'black'            
+            ctx.rect(0,0,1000,1000);     
             ctx.stroke();
             ctx.fill(); 
             ctx.closePath();
@@ -289,37 +666,56 @@
             showWords();         
             
             if (end.length > 0) {
-                begin.forEach((element, index) => {
-                    if (index < begin.length-1) {
-                        drawDoubleStrokedLineWArc(element[0], element[1], end[index][0], end[index][1], 35);  
-                    }  
-                });
+               for (var i = 0; i < init.length; i++) {
+                    if (i < end.length)
+                        drawDoubleStrokedLineWArc(init[i][0], init[i][1], end[i][0], end[i][1], 35);                          
+               }
             }
-   
             drawDoubleStrokedLineWArc(originValues[0], originValues[1], x - x%(xoffset*2)+padding+corrX, y+elemTop-2*offset - y%offset + corrY, 35);    
             lastValues = [x - x%(xoffset*2)+padding+corrX, y+elemTop-2*offset - y%offset+corrY];
+            console.log(Math.floor(lastValues[0]/(xoffset)-.44), Math.floor(lastValues[1]/(offset)-.825)+1)+1; //, cc[Math.floor(lastValues[0]/(xoffset)-.44)][Math.floor(lastValues[1]/(offset*2)-.825)+1]);
+            wordsCoord[2] = Math.floor(lastValues[0]/(xoffset)-.44); wordsCoord[3] = Math.floor(lastValues[1]/(offset)-.825+2);
+            console.log('letra', cc[wordsCoord[3]][wordsCoord[2]]);//console.log(cc[Math.floor(x/(offset))-1][Math.floor(y/(offset)) + 8])        
         }
 
     }, false);
 
+    // adiciona um eventlistener para quando ha o movimento ascendente do mouse
     c.addEventListener('mouseup', function(event) {
-        var x = event.pageX - elemLeft,
+        var x = event.pageX - elemLeft;
         y = event.pageY - elemTop;
+        x*=proportion[0];
+        y*=proportion[1];
         testRelease = false;
         end.push([lastValues[0], lastValues[1]]);
         //console.log(end, begin);
-        lastValues = [];        
+        lastValues = []; 
+        console.log(wordsCoord);       
         // Collision detection between clicked offset and element.
+        if (wordsCoord[0] == wordsCoord[2] || wordsCoord[1] == wordsCoord[3] || (wordsCoord[0] - wordsCoord[1]) == (wordsCoord[2] - wordsCoord[3])){
+            console.log('yis')
+            wordsCoord
+            console.log(...wordsCoord);
+            result = findWords(...wordsCoord)
+        }
         
-                           
         showWords();
         ctx.fillStyle = 'white'
         ctx.strokeStyle = 'white'
-        begin.forEach((element, index) => {
-            if (index < begin.length-1) {
-                drawDoubleStrokedLineWArc(element[0], element[1], end[index][0], end[index][1], 35);  
-            }  
-        });
+        console.log(init);
+        console.log(end);        
+        if (!lista.includes(result)){
+            init = init.slice(0, -1);
+            counter--;
+            end = end.slice(0, -1);
+        }
+        console.log(init);        
+        console.log(end);
+
+        for (var i = 0; i < init.length; i++) {
+            if (i < end.length)        
+                drawDoubleStrokedLineWArc(init[i][0], init[i][1], end[i][0], end[i][1], 35);                          
+        }
 
         // begin.forEach((element, index) => {
             // drawDoubleStrokedLineWArc(element[0], element[1], end[index][0], end[index][1], 28);    
@@ -329,6 +725,7 @@
 
     }, false);
 
+    // desenha o arco na caixa de selecao do caca palavras
     var drawDoubleStrokedLineWArc = (beginx, beginy, endx, endy, tickness)=> {
         let factor = Math.pow(2, beginx-endx)/Math.pow(2, beginy-endy);
         let angle = Math.atan((beginy-endy)/(beginx-endx));
@@ -378,6 +775,7 @@
         //ctx.fill();
 
     }
+    
 
     ctx.fillStyle = 'black'
     ctx.strokeStyle = 'black'      
@@ -392,7 +790,7 @@
     ctx.fillStyle = 'white'
     ctx.arcStyle = 'white'    
     ctx.strokeStyle = 'white'    
-    ctx.font = "28px Arial";    
+    ctx.font = "20px Arial";    
 
     showWords();
 
