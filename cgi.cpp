@@ -10,7 +10,7 @@ int main() {
     ifstream fp("index.html");
     while (!fp.eof()) {
         getline(fp, buffer);
-        printf ("%s", buffer);
+        cout << buffer << endl;
     }
 
 }
