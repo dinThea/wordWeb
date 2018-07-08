@@ -152,6 +152,9 @@
         .centered{
             width: 100%;
         }
+        .c {
+            cursor: none;
+        }
     </style>
     <meta charset="utf-8"/>
 </head>
@@ -178,7 +181,7 @@
                             <li id = "cc3" class = "noselect menuItem">DIFÍCIL</li>                        
                         </ul>
                     </section>
-                    <canvas id = "c" class = "noselect" width=1200 height="1300"> 
+                    <canvas id = "c" class = "noselect c" width=1200 height="1300"> 
                     </canvas>
 
                 </ul>    
@@ -198,22 +201,24 @@
     let lista = [];
     var placar = document.getElementById("placar");
     placar.style.height = 0;
-    let cc = []
+    let cc = [];
+    let words = [];
+    
 
     // caca palavras do nivel facil
     cc1 = [    
         "",    
-        "        P F H T O R T A W B          ",// TORTA HOR
-		"        G J Y K W F V E X S          ",
-		"        S B N M N R C S J T          ",// SALADA COMECO VER +  COMECO DO BOLO DIA
-		"        J L O T F A M A T R          ",
-		"        F P Y L W N J L B O          ",// COMECO DO PICLES VER
-		"        O I Y P O G D F S G          ",// FIM DO BOLO DIA + FRANGO DIA 
-		"        L C M Y S O R D M O          ",// COMECO DA MANGA DIA
-		"        O L B A T A T A W N          ",//BATATA HOR + FIM DA SALADA VER
-		"        K E R F N I X H S O          ",
-	    "        P S D G O G N M S F          ",// FIM DO PICLE VER
-        "        Z B O P U F A N H F          ",// FIM DA MANGA DIA + FIM DO FRANGO DIA
+        "         P F H T O R T A W B          ",// TORTA HOR
+		"         G J Y K W F V E X S          ",
+		"         S B N M N R C S J T          ",// SALADA COMECO VER +  COMECO DO BOLO DIA
+		"         J L O T F A M A T R          ",
+		"         F P Y L W N J L B O          ",// COMECO DO PICLES VER
+		"         O I Y P O G D F S G          ",// FIM DO BOLO DIA + FRANGO DIA 
+		"         L C M Y S O R D M O          ",// COMECO DA MANGA DIA
+		"         O L B A T A T A W N          ",//BATATA HOR + FIM DA SALADA VER
+		"         K E R F N I X H S O          ",
+	    "         P S D G O G N M S F          ",// FIM DO PICLE VER
+        "         Z B O P U F A N H F          ",// FIM DA MANGA DIA + FIM DO FRANGO DIA
     ]
 
     //Lista de palavras do cc1
@@ -287,36 +292,36 @@
     // caca palavras do nivel dificil
     cc3 = [
         "",
-        "C A T B D V A A A U O M E T E O R O X R",
-        "R A U F T G A E P F E O P O E I R A Z X",
-        "U S I U E N U O A P L U T A O L A C C H",
-        "B M E M L C S E D I A A T E S A O A J C",
-        "M C O M E T A S E U T E R R A X U E U O",
-        "O U G O S O R O X S I S T E M A T H A H",
-        "N F A O C D E A A E Z H A E T I O N E S",
-        "R Z L L O E I T D S O P R O C H N C I O",
-        "U O A U P E X I I X H O T W A X O H J R",
-        "T S X A I U O B V B Z R O A E A S T E T",
-        "A O I J O Y E R E T I P U J C A Q H U S",
-        "S O A I M Q V O A F S P P S O O A K O A",
-        "E D I O R E T S A A U A P G E S X O E A",
-        "O O I R U C R E M L N O E O N U T E N I",
-        "O I N E G I X O P Z E G E I O F W J S P",
-        "A R E V A M I R P C V V A A L O A R E V",
-        "S E S E M O E L A C Y D A F U T S E T O",
-        "A B O D J N T U A M S M O E N Y A N I J",
-        "O D O O C A P S E A G U O N O K O F N B",
-        "Z N O N A R R P L R E N Z E Q S C A Q R",
-        "T G O M R U O U J T E D I O T E N A L P",
-        "A Z N S N A C C E E L O S C U T O R A O",
-        "C A R A H O Z S H O R A R I O S Q E A O",
-        "B C E T R A N S L A C A O O B E R F U O",
-        "R I V E E V N V D E U U O T O L A S D U",
-        "F M N L E A O A E O P W A I C E L O V A",
-        "O S I I T W T Q B E I B E E I C O I W E",
-        "Q O K T C A A A V O E I Q F O K S L C A",
-        "X C G E O A C A T O R U I E S T R E L A",
-        "N J I S A E U N I V E R S O A O Z H A Z"
+        " C A T B D V A A A U O M E T E O R O X R",
+        " R A U F T G A E P F E O P O E I R A Z X",
+        " U S I U E N U O A P L U T A O L A C C H",
+        " B M E M L C S E D I A A T E S A O A J C",
+        " M C O M E T A S E U T E R R A X U E U O",
+        " O U G O S O R O X S I S T E M A T H A H",
+        " N F A O C D E A A E Z H A E T I O N E S",
+        " R Z L L O E I T D S O P R O C H N C I O",
+        " U O A U P E X I I X H O T W A X O H J R",
+        " T S X A I U O B V B Z R O A E A S T E T",
+        " A O I J O Y E R E T I P U J C A Q H U S",
+        " S O A I M Q V O A F S P P S O O A K O A",
+        " E D I O R E T S A A U A P G E S X O E A",
+        " O O I R U C R E M L N O E O N U T E N I",
+        " O I N E G I X O P Z E G E I O F W J S P",
+        " A R E V A M I R P C V V A A L O A R E V",
+        " S E S E M O E L A C Y D A F U T S E T O",
+        " A B O D J N T U A M S M O E N Y A N I J",
+        " O D O O C A P S E A G U O N O K O F N B",
+        " Z N O N A R R P L R E N Z E Q S C A Q R",
+        " T G O M R U O U J T E D I O T E N A L P",
+        " A Z N S N A C C E E L O S C U T O R A O",
+        " C A R A H O Z S H O R A R I O S Q E A O",
+        " B C E T R A N S L A C A O O B E R F U O",
+        " R I V E E V N V D E U U O T O L A S D U",
+        " F M N L E A O A E O P W A I C E L O V A",
+        " O S I I T W T Q B E I B E E I C O I W E",
+        " Q O K T C A A A V O E I Q F O K S L C A",
+        " X C G E O A C A T O R U I E S T R E L A",
+        " N J I S A E U N I V E R S O A O Z H A Z"
     ]
 
     //Lista para o cc3
@@ -390,8 +395,7 @@
                     console.log(ret)                    
                 }
             }
-        }
-        if(cy1 == cy2){
+        } else if(cy1 == cy2){
             if(cx1 < cx2){
                 for(i = cx1; i <= cx2; i++ ){
                     if (cc[i][cy1] != ' ')
@@ -406,6 +410,14 @@
                     console.log(ret)
                     
                 }    
+            }
+        } else {
+            console.log('diagonal');
+            var stepx = (cx1 > cx2)? -1: 1, stepy = (cy1 > cy2)? -2: 2;
+            console.log(stepx, stepy);
+            for (var i = cx1, j = cy1; i != (cx2+stepx); i+=stepx, j+=stepy){
+                ret+=cc[i][j];
+                console.log(ret);                
             }
         }
 
@@ -429,8 +441,8 @@
 
     }
 
-    let corrX = -38, corrY = -50; // correcao das posicao de x e y
-    let proportion = [1.2, 1.2];
+    let corrX = -9, corrY = -33; // correcao das posicao de x e y
+    let proportion = [1, 1];
     elemLeft = element.offsetLeft + menuW.offsetLeft; // correcao de posicao
     elemTop = element.offsetTop + menuW.offsetTop;// vericacao de estado
     var clickHandler = true;// verificacao de estado
@@ -466,7 +478,23 @@
     document.getElementById("cc3").onclick = function() {onClickItem(this.id)};
 
     var desenharPalavras = (lista) => {
+        plq.fillStyle = 'black';
+        plq.rect(-10000,-10000,100000,100000);  
+        plq.fill();
+        plq.closePath();          
+
         lista.forEach((element, index) => {
+            console.log(words);
+            if (words.includes(element)){
+                plq.beginPath();
+                plq.moveTo(padding,index*offset/1.5+43-5);
+                plq.lineWidth = 5;
+                plq.lineTo(padding + element.length*12,index*offset/1.5+43-5);
+                plq.strokeStyle="white";
+                plq.stroke(); 
+                plq.closePath();
+            }
+            plq.fillStyle = "white";
             plq.fillText(element, padding, index*offset/1.5+43);                     
         });
     }
@@ -474,10 +502,11 @@
     // funcao que faz cada item se tornar clicavel
     var onClickItem = (id) => {
 
+        words = [];
         plq.fillStyle = 'black'
         plq.strokeStyle = 'black'      
         plq.font = "18px Arial";        
-        plq.rect(0,0,10000,10000);  
+        plq.rect(-10000,-10000,100000,100000);  
         plq.fill();
         plq.closePath();          
         var size;
@@ -548,6 +577,8 @@
 
     // funcao que faz aparecer ou desaparecer quando clicado
     var onClick = () => {
+
+        words = [];
         document.getElementById("c").style.visibility = "hidden";
         document.getElementById("c").style.height = "0px";                
 
@@ -607,9 +638,8 @@
     let originValues = [];    
     let lastValues = [];
     let testRelease = false;
-    let padding = 25;
+    let padding = 0;
     let wordsCoord = [1,1,1,1];
-    let words = [];
     //ctx.scale(.25,.25);
 
     var headerCanvas = document.getElementById("header");// variavel do titulo da pagina
@@ -636,8 +666,8 @@
         var newoffset = Math.abs(y%(offset))<(offset/2)?y%offset:-y%offset;
         var newoffsetx = Math.abs(x%(2*xoffset))<(2*xoffset/2)?x%2*xoffset:-x%2*xoffset;        
         console.log(newoffset)
-        originValues = [x - x%(xoffset*2) + padding + corrX,y+elemTop - newoffset - 2*offset + corrY];
-        lastValues = [x - x%(xoffset*2)+padding+corrX, y+elemTop-2*offset - y%offset+corrY]; 
+        originValues = [x - x%(xoffset*2) + padding + corrX,y+elemTop-2*offset - y%offset + corrY];
+        lastValues = [x - x%(xoffset*2)+padding+corrX, y+elemTop-2*offset - y%offset + corrY]; 
         init.push([lastValues[0], lastValues[1]]);
         console.log(init);     
         counter++;
@@ -648,29 +678,31 @@
 
     // adiciona um eventlistener para o movimento do mouse
     c.addEventListener('mousemove', function(event) {
+        ctx.strokeStyle = 'black'      
+        ctx.fillStyle = 'black'            
+        ctx.rect(0,0,10000,10000);     
+        ctx.stroke();
+        ctx.fill(); 
+        ctx.closePath();
+        ctx.fillStyle = 'white'
+        ctx.strokeStyle = 'white'
+        showWords();         
+            
+
         var x = event.pageX - elemLeft,
         y = event.pageY - elemTop;
         x*=proportion[0];
         y*=proportion[1];
 
-        drawDoubleStrokedLineWArc(x - x%(xoffset*2)+padding+corrX, y+elemTop-2*offset - y%offset + corrY, x - x%(xoffset*2)+padding+corrX+1, y+elemTop-2*offset - y%offset + corrY+1, 35);                        
-        if (testRelease) { 
-            ctx.strokeStyle = 'black'      
-            ctx.fillStyle = 'black'            
-            ctx.rect(0,0,1000,1000);     
-            ctx.stroke();
-            ctx.fill(); 
-            ctx.closePath();
-            ctx.fillStyle = 'white'
-            ctx.strokeStyle = 'white'
-            showWords();         
-            
-            if (end.length > 0) {
-               for (var i = 0; i < init.length; i++) {
-                    if (i < end.length)
-                        drawDoubleStrokedLineWArc(init[i][0], init[i][1], end[i][0], end[i][1], 35);                          
-               }
+        drawDoubleStrokedLineWArc(x - x%(xoffset*2)+padding+corrX, y+elemTop-2*offset - y%offset + corrY, x - x%(xoffset*2)+padding+corrX + .001, y+elemTop-2*offset - y%offset + corrY + .001, 35);                        
+        if (end.length > 0) {
+            for (var i = 0; i < init.length; i++) {
+                if (i < end.length)
+                    drawDoubleStrokedLineWArc(init[i][0], init[i][1], end[i][0], end[i][1], 35);                          
             }
+        }
+
+        if (testRelease) { 
             drawDoubleStrokedLineWArc(originValues[0], originValues[1], x - x%(xoffset*2)+padding+corrX, y+elemTop-2*offset - y%offset + corrY, 35);    
             lastValues = [x - x%(xoffset*2)+padding+corrX, y+elemTop-2*offset - y%offset+corrY];
             console.log(Math.floor(lastValues[0]/(xoffset)-.44), Math.floor(lastValues[1]/(offset)-.825)+1)+1; //, cc[Math.floor(lastValues[0]/(xoffset)-.44)][Math.floor(lastValues[1]/(offset*2)-.825)+1]);
@@ -691,8 +723,9 @@
         //console.log(end, begin);
         lastValues = []; 
         console.log(wordsCoord);       
+        var result = '';
         // Collision detection between clicked offset and element.
-        if (wordsCoord[0] == wordsCoord[2] || wordsCoord[1] == wordsCoord[3] || (wordsCoord[0] - wordsCoord[1]) == (wordsCoord[2] - wordsCoord[3])){
+        if (wordsCoord[0] == wordsCoord[2] || wordsCoord[1] == wordsCoord[3] || (wordsCoord[0]/2 - wordsCoord[1]) == (wordsCoord[2]/2 - wordsCoord[3])){
             console.log('yis')
             wordsCoord
             console.log(...wordsCoord);
@@ -708,7 +741,10 @@
             init = init.slice(0, -1);
             counter--;
             end = end.slice(0, -1);
+        }else{
+            words.push(result);
         }
+        desenharPalavras(lista);
         console.log(init);        
         console.log(end);
 
