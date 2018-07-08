@@ -1,0 +1,162 @@
+*, *::before, *::after {
+box-sizing: border-box;
+}
+/*define estilo da funcao que define que o item se torna nao selecionavel*/
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome and Opera */
+}
+
+section{
+    width: 100%;
+    overflow: auto;
+    min-width: 30em;
+    margin: auto;
+}
+
+/*define estilo da funcao corpo */
+body {
+    color: #fff;
+    background: repeating-linear-gradient(to bottom right, #06070e 0, #06070e .4em, #29524a 0, #29524a 0.75em, #94a187 0, #94a187 .25em);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    font: 1vw 'SourceCodePro', sans-serif;
+}
+
+/*define o estilo da funcao que empacota os itens do menu*/
+.wrapper {
+    max-width: 2000px;
+    /* margin-top: 2em; */
+    padding-left: 0em;
+    padding-right: 0em;
+    background-color: rgba(0, 0, 0, 1);
+    padding-bottom: 0;
+    padding-top: 0;
+    overflow: hidden;
+}
+
+/**/
+.header {
+    position: relative;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    border-top-left-radius:20px;
+    border-top-right-radius: 20px;
+    min-width: 100%;
+}
+
+/**/
+.menu {
+    background-color: #000;
+    /* text-align: center; */
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-left: 0;            
+    margin: auto;
+    width: auto !important;
+    min-width: 5em;
+    /* padding: 10; */
+    list-style-type: none;
+    position: relative;
+}
+
+/**/
+.placar {
+    background-color: #000;
+    /* text-align: center; */
+    margin-top: 10;
+    margin-bottom: 0;
+    list-style-type: none;
+}
+
+/**/
+canvas {
+    display: block;
+    transition: opacity is ease-in;
+    transition: opacity is ease-out;            
+    width: inherit;
+}
+
+/**/
+.menuHeader {
+    padding-top: .3em;
+    font: 52% 'Arial Bold';
+}
+
+/**/
+.menuItem {
+    margin-top: .6em;
+    padding: .3em;
+    font: 1.3em 'Arial';
+    list-style-type: none;            
+}
+
+/**/
+.menuItem:hover{
+    background-color: #252525;
+}
+
+/**/
+.menuW{
+    /* margin-top: 2em; */
+    padding-left: 0em;
+    padding-right: 0em;    
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 1);
+    overflow: hidden;
+    padding-top: 0;
+    margin-top: 0;
+    border-bottom-left-radius: 20px;
+    max-width: 50%;
+}
+
+.indent-1 {
+    float: left;
+    transition: opacity is ease-in;
+    transition: opacity is ease-out;            
+}
+.indent-1 section {width: 50%; float: left !important;}
+.palavranova{
+    background-color: #000;
+    font: 20% 'Arial';
+    border: 1px 'white';
+    margin: 'white'
+}
+
+/**/      
+.form{
+    margin:  0;
+    padding: 0;
+}
+.placar{
+    padding: .3em;
+    padding-top: 1.2em;
+    padding-bottom: 1.38em;                                    
+    font: 120% 'Arial';
+    z-index: 2;
+    border-bottom-right-radius: 20px;
+
+}
+.centered{
+    background-color: #000;    
+    width: 100%;
+    border-radius: 20px;
+        
+}
+.c {
+    min-height: 180vh;
+    max-height: 180vh;
+    cursor: none;
+}
+.plac {
+    min-height: 180vh;
+    max-height: 180vh;
+}
