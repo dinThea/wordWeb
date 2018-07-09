@@ -182,13 +182,13 @@ listacc3 = [
 // Funcao que guardara as palavras do caca palavra
 var findWords = (cy1, cx1, cy2, cx2) => {
     var ret = '';
-    console.log(cy1, cx1, cy2, cx2);
+    //console.log(cy1, cx1, cy2, cx2);
     if(cx1 == cx2){
         if(cy1 < cy2){
             for(j = cy1; j <= cy2; j++){
                 if (cc[cx1][j] != ' ')
                     ret+=cc[cx1][j];
-                console.log(ret)
+                //console.log(ret)
                 
             }
         }
@@ -196,7 +196,7 @@ var findWords = (cy1, cx1, cy2, cx2) => {
             for(j = cy2; j <= cy1; j--){
                 if (cc[cx1][j] != ' ')               
                     ret+=cc[cx1][j];
-                console.log(ret)                    
+                //console.log(ret)                    
             }
         }
     } else if(cy1 == cy2){
@@ -204,24 +204,24 @@ var findWords = (cy1, cx1, cy2, cx2) => {
             for(i = cx1; i <= cx2; i++ ){
                 if (cc[i][cy1] != ' ')
                     ret+=cc[i][cy1];
-                console.log(ret)
+                //console.log(ret)
             }
         }
         else if(cx1 > cx2){
             for(i = cx2; i <= cx1; i--){
                 if (cc[i][cy1] != ' ')                    
                     ret+=cc[i][cy1];
-                console.log(ret)
+                //console.log(ret)
                 
             }    
         }
     } else {
-        console.log('diagonal');
+        //console.log('diagonal');
         var stepx = (cx1 > cx2)? -1: 1, stepy = (cy1 > cy2)? -2: 2;
-        console.log(stepx, stepy);
+        //console.log(stepx, stepy);
         for (var i = cx1, j = cy1; i != (cx2+stepx); i+=stepx, j+=stepy){
             ret+=cc[i][j];
-            console.log(ret);                
+            //console.log(ret);                
         }
     }
 
@@ -233,7 +233,7 @@ var element = document.getElementById('abrircp');
 var menuW = document.getElementById('menuW'); 
 var ctx = c.getContext('2d');    
 var plq = placar.getContext('2d'); 
-console.log(ctx.canvas.width, ctx.canvas.height);
+//console.log(ctx.canvas.width, ctx.canvas.height);
 // funcao que mostra as palavras
 let showWords = (fillStyle) => {
 
@@ -270,7 +270,7 @@ if (clickHandler) {
     document.getElementById('abrircp').style.height = '180px';    
     placar.style.height = '180px';            
     if (ccexists) {
-        console.log(ccexists);
+        //console.log(ccexists);
         document.getElementById('c').style.visibility = 'visible';     
         document.getElementById('c').style.height = '900px';
     } else {
@@ -292,7 +292,7 @@ var desenharPalavras = (lista) => {
     plq.closePath();          
 
     lista.forEach((element, index) => {
-        console.log(words);
+        //console.log(words);
         if (words.includes(element)){
             plq.beginPath();
             plq.moveTo(padding,index*offset/1.5+43-5);
@@ -342,7 +342,7 @@ var onClickItem = (id) => {
 
     desenharPalavras(lista);
 
-    console.log(cc);
+    //console.log(cc);
 
     document.getElementById('abrircp').style.visibility = 'hidden';
     document.getElementById('abrircp').style.height = '0px'; 
@@ -350,7 +350,7 @@ var onClickItem = (id) => {
 
     // caso caca palavras existe ele se torna visivel
     if (ccexists) {
-        console.log(ccexists);
+        //console.log(ccexists);
         document.getElementById('c').style.visibility = 'visible'; 
         document.getElementById('c').style.height = size;
         placar.style.height = size;                                                              
@@ -379,7 +379,7 @@ var onClickItem = (id) => {
     end = new Array();
     showWords();
     
-    console.log('click');     
+    //console.log('click');     
     
 }
 
@@ -416,7 +416,7 @@ var onClick = () => {
     }
 
     clickHandler = !clickHandler;
-    console.log('click');        
+    //console.log('click');        
 }
 
 // desenha as linhas de selecao nas palavras do caca
@@ -469,15 +469,15 @@ c.addEventListener('mousedown', function(event) {
     y = event.pageY - elemTop;
 
     testRelease = true;
-    console.log('aqui');
+    //console.log('aqui');
     originValues = [x - x%(xoffset*2) + padding, y - y%offset];
     lastValues = [x - x%(xoffset*2) + padding, y - y%offset]; 
     init.push([lastValues[0], lastValues[1]]);
-    console.log(init);     
+    //console.log(init);     
     counter++;
     wordsCoord[0] = Math.floor(originValues[0]/(xoffset)) - 1; wordsCoord[1] = Math.floor(originValues[1]/(offset));
-    console.log('wordsCoord', wordsCoord);        
-    console.log('primeira letra:', cc[wordsCoord[1]][wordsCoord[0]]);//console.log(cc[Math.floor(x/(offset))-1][Math.floor(y/(offset)) + 8])
+    //console.log('wordsCoord', wordsCoord);        
+    //console.log('primeira letra:', cc[wordsCoord[1]][wordsCoord[0]]);////console.log(cc[Math.floor(x/(offset))-1][Math.floor(y/(offset)) + 8])
 
 }, false);
 
@@ -520,15 +520,15 @@ c.addEventListener('mouseup', function(event) {
     y*=proportion[1];
     testRelease = false;
     end.push([lastValues[0], lastValues[1]]);
-    //console.log(end, begin);
+    ////console.log(end, begin);
     lastValues = []; 
-    console.log(wordsCoord);       
+    //console.log(wordsCoord);       
     var result = '';
     // Collision detection between clicked offset and element.
     if (wordsCoord[0] == wordsCoord[2] || wordsCoord[1] == wordsCoord[3] || (wordsCoord[0]/2 - wordsCoord[1]) == (wordsCoord[2]/2 - wordsCoord[3])){
-        console.log('yis')
+        //console.log('yis')
         wordsCoord
-        console.log(...wordsCoord);
+        //console.log(...wordsCoord);
         result = findWords(...wordsCoord)
     }
     
@@ -574,7 +574,7 @@ var drawDoubleStrokedLineWArc = (beginx, beginy, endx, endy, tickness)=> {
         endx-Math.sin(angle)*tickness/2,
         endy+Math.cos(angle)*tickness/2
     ]
-    //console.log('angle: ', angle);
+    ////console.log('angle: ', angle);
     // Desenhando as linhas
     ctx.beginPath();
     ctx.lineWidth = 3;
